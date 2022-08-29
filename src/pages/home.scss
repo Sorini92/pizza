@@ -1,0 +1,20 @@
+.content {
+    &__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &__title {
+        margin-top: 32px;
+        margin-bottom: 35px;
+        font-weight: 700;
+        font-size: 32px;
+        letter-spacing: 0.01em;
+        color: #000000;
+    }
+}
+
+.container {
+    padding-left: 60px;
+    padding-right: 60px;
+}
