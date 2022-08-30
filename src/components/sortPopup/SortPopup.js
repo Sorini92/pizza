@@ -1,12 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { activeSortTypeChanged, sortBy } from '../../pages/pizzasSlice';
 
 import './sortPopup.scss';
 
-const SortPopup = ({sortItems, activeSortType}) => {
+const SortPopup = ({sortItems}) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const sortRef = useRef();
-    /* const activeLabel = sortItems.find((item) => item.type === activeSortType).name; */
-    let activeLabel = sortItems[0].name;
+    const activeSortType = useSelector(state => state.pizzas.sortType); 
+    const dispatch = useDispatch();
 
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup);
@@ -19,12 +21,11 @@ const SortPopup = ({sortItems, activeSortType}) => {
         }
     };
 
-    const onSelectItem = (index) => {
-        /* if (onClickSortType) {
-          onClickSortType(index);
-        } */
+    const onSelectItem = (name) => {
+        dispatch(activeSortTypeChanged(name))
+        dispatch(sortBy(name))
         setVisiblePopup(false);
-      };
+    };
 
     useEffect(() => {
         document.body.addEventListener('click', handleOutsideClick);
@@ -46,7 +47,7 @@ const SortPopup = ({sortItems, activeSortType}) => {
                 />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={toggleVisiblePopup}>{activeLabel}</span>
+                <span onClick={toggleVisiblePopup}>{activeSortType}</span>
             </div>
             {visiblePopup && (
                 <div className="sort__popup">
@@ -54,7 +55,7 @@ const SortPopup = ({sortItems, activeSortType}) => {
                     {sortItems &&
                     sortItems.map((item, index) => (
                         <li
-                        //onClick={() => onSelectItem(item)}
+                        onClick={() => onSelectItem(item.name)}
                         className=''
                         key={`${item.type}_${index}`}>
                         {item.name}

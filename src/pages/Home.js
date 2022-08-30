@@ -7,10 +7,12 @@ import Categories from "../components/categories/Categories";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
 import SortPopup from "../components/sortPopup/SortPopup";
 import Header from '../components/header/Header'
+import Spinner from '../components/spinner/Spinner';
 
 import './home.scss';
 
 const categoryNames = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+
 const sortItems = [
     { name: 'популярности', type: 'popular', order: 'desc' },
     { name: 'цене', type: 'price', order: 'desc' },
@@ -30,8 +32,8 @@ const Home = () => {
             }
         }
     );
-
-    const filteredPizzas = useSelector(filteredPizzasSelector);
+    
+    let filteredPizzas = useSelector(filteredPizzasSelector);
     const pizzasLoadingStatus = useSelector(state => state.pizzas.pizzasLoadingStatus);
     const dispatch = useDispatch();
 
@@ -49,7 +51,11 @@ const Home = () => {
                     <SortPopup sortItems={sortItems}/>
                 </div>
                 <div className="content__title">Все пиццы</div>
-                <PizzaBlock pizzas={filteredPizzas} pizzasLoadingStatus={pizzasLoadingStatus}/>
+                <div className='pizza'>
+                    {pizzasLoadingStatus === 'loading' ? 
+                        <Spinner/> : 
+                        filteredPizzas.map(item => <PizzaBlock key={item.id} pizzas={item}/>)}
+                </div>
             </div>
         </>
         

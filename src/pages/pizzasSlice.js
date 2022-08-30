@@ -4,7 +4,8 @@ import {useHttp} from '../hooks/http.hook';
 const initialState = {
     pizzas: [],
     pizzasLoadingStatus: 'idle',
-    activeFilter: 'Все'
+    activeFilter: 'Все',
+    sortType: 'популярности'
 }
 
 export const fetchPizzas = createAsyncThunk(
@@ -19,18 +20,38 @@ const pizzasSlice = createSlice({
     name: 'pizzas',
     initialState,
     reducers: {
-        pizzaCreated: (state, action) => {state.pizzas.push(action.payload)},
-        pizzaDeleted: (state, action) => {
-            state.pizzas = state.pizzas.filter(item => item.id !== action.payload)
+        activeFilterChanged: (state, action) => {state.activeFilter = action.payload},
+        activeSortTypeChanged: (state, action) => {state.sortType = action.payload},
+        sortBy: (state, action) => {
+            switch(action.payload) {
+                case 'популярности': 
+                    state.pizzas = state.pizzas.sort((a, b) => b.rating - a.rating);
+                    break
+                case 'цене':
+                    state.pizzas = state.pizzas.sort((a, b) => a.price - b.price);
+                    break
+                case 'алфавит': 
+                    state.pizzas = state.pizzas.sort((a, b) => {
+                        if (a.name > b.name) {
+                            return 1;
+                        }
+                        if (a.name < b.name) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                    break
+                default:
+                    state.pizzas = state.pizzas.sort((a, b) => b.rating - a.rating);
+            }
         },
-        activeFilterChanged: (state, action) => {state.activeFilter = action.payload}
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchPizzas.pending, state => {state.pizzasLoadingStatus = 'loading'})
             .addCase(fetchPizzas.fulfilled, (state, action) => {
                 state.pizzasLoadingStatus = 'idle';
-                state.pizzas = action.payload;
+                state.pizzas = action.payload.sort((a, b) => b.rating - a.rating);
             })
             .addCase(fetchPizzas.rejected, state => {
                 state.pizzasLoadingStatus = 'error';
@@ -46,7 +67,7 @@ export const {
     pizzasFetching,
     pizzasFetched,
     pizzasFetchingError,
-    pizzaCreated,
-    pizzaDeleted,
-    activeFilterChanged
+    activeFilterChanged,
+    activeSortTypeChanged,
+    sortBy
 } = actions;
