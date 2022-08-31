@@ -93,8 +93,13 @@
             color: #000000;
         }
         &-btn {
+            padding-right: 14px;
+            padding-left: 14px;
             cursor: pointer;
-            width: 132px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 132px;
             height: 40px;
             background: #FFFFFF;
             border: 1px solid #EB5A1E;
@@ -103,6 +108,20 @@
             font-size: 16px;
             line-height: 19px;
             color: #EB5A1E;
+            &-count {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-left: 10px;
+                width: 22px;
+                height: 22px;
+                background: #EB5A1E;
+                border-radius: 100%;
+                font-weight: 700;
+                font-size: 13px;
+                line-height: 16px;
+                color: #FFFFFF;
+            }
             svg {
                 margin-right: 7px;
             }
@@ -115,6 +134,10 @@
                 svg path {
                     fill: #FFFFFF;
                 }
+                .pizza__bottom-btn-count {
+                    background: #fff;
+                    color: #FE5F1E;
+                }
             }
         }
     }
@@ -122,6 +145,9 @@
 
 .activeSetting {
     background: white;
+    &:hover {
+        background-color: darken(white, 2%);
+    }
 }
 .disableSetting {
     opacity: 0.4;

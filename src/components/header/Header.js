@@ -5,7 +5,7 @@ import buscet from '../assets/buscet.svg';
 
 import "./header.scss";
 
-const Header = ({show}) => {
+const Header = ({show, order, totalPrice}) => {
     return (
         <>
             <div className="header">
@@ -22,14 +22,14 @@ const Header = ({show}) => {
                 </div>
                 {show && <Link to={'/buscet'} className="header__right">
                     <div className="header__right-sum">
-                        520 грн
+                        {totalPrice} грн
                     </div>
                     <div className="header__right-divider">
                         |
                     </div>
                     <div className="header__right-wrapper">
                         <img className="header__right-img" src={buscet} alt='bascet'/>
-                        <div className="header__right-count">3</div>
+                        <div className="header__right-count">{order.length}</div>
                     </div>                
                 </Link>}
             </div>

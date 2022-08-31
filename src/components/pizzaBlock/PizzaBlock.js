@@ -3,17 +3,32 @@ import classNames from 'classnames';
 
 import './pizzaBlock.scss';
 
-const PizzaBlock = ({pizzas}) => {
+const PizzaBlock = ({pizza, onAddPizza}) => {
     const availableTypes = ['тонкое', 'традиционное'];
     const availableSizes = [26, 30, 40];
 
-    const [activeType, setActiveType] = useState(pizzas.types[0]);
-    const [activeSize, setActiveSize] = useState(pizzas.sizes[0]);
+    const {id, name, price, imageUrl, types, sizes} = pizza;
+
+    const [activeType, setActiveType] = useState(types[0]);
+    const [activeSize, setActiveSize] = useState(0);
+
+    const onAdd = () => {
+        const obj = {
+            id,
+            name,
+            price,
+            imageUrl,
+            type: availableTypes[activeType],
+            size: availableSizes[activeSize],
+            count: 1
+        }
+        onAddPizza(obj);
+    }
 
     return (
         <div className='pizza__item'>
-                <img src={pizzas.imageUrl} alt='pizza' className='pizza__img '/>
-                <div className='pizza__title'>{pizzas.name}</div>
+                <img src={imageUrl} alt='pizza' className='pizza__img '/>
+                <div className='pizza__title'>{name}</div>
                 <div className='pizza__setting'>
                     <div className='pizza__dough'>
                         {availableTypes.map((item, i) => (
@@ -22,7 +37,7 @@ const PizzaBlock = ({pizzas}) => {
                                 key={item} 
                                 className={classNames({
                                     activeSetting: activeType === i,
-                                    disableSetting: !pizzas.types.includes(i)
+                                    disableSetting: !types.includes(i)
                                 }, 'pizza__dough-item')}
                                 >
                                 {item}
@@ -35,8 +50,8 @@ const PizzaBlock = ({pizzas}) => {
                                 onClick={() => setActiveSize(i)}
                                 key={item} 
                                 className={classNames({
-                                    activeSetting: activeSize === item,
-                                    disableSetting: !pizzas.sizes.includes(item)
+                                    activeSetting: activeSize === i,
+                                    disableSetting: !sizes.includes(item)
                                 }, 'pizza__size-item')}
                                 >
                                 {item} см.
@@ -45,8 +60,8 @@ const PizzaBlock = ({pizzas}) => {
                     </div>
                 </div>
                 <div className='pizza__bottom'>
-                    <div className='pizza__bottom-price'>от {pizzas.price} грн</div>
-                    <button className='pizza__bottom-btn'>
+                    <div className='pizza__bottom-price'>от {price} грн</div>
+                    <button onClick={onAdd} className='pizza__bottom-btn'>
                         <svg
                             width="12"
                             height="12"
@@ -59,6 +74,7 @@ const PizzaBlock = ({pizzas}) => {
                             />
                         </svg>
                         <span>Добавить</span>
+                        {/* <div className='pizza__bottom-btn-count'>1</div> */}
                     </button>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchPizzas } from './pizzasSlice';
+import { addPizza } from './buscetSlice';
 import { createSelector } from '@reduxjs/toolkit';
 
 import Categories from "../components/categories/Categories";
@@ -35,6 +36,9 @@ const Home = () => {
     
     let filteredPizzas = useSelector(filteredPizzasSelector);
     const pizzasLoadingStatus = useSelector(state => state.pizzas.pizzasLoadingStatus);
+    const order = useSelector(state => state.buscet.order);
+    const totalPrice = useSelector(state => state.buscet.totalPrice);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -42,9 +46,13 @@ const Home = () => {
         // eslint-disable-next-line
     }, []);
 
+    const onAddPizza = (pizza) => {
+        dispatch(addPizza(pizza))
+    }
+    
     return (
         <>
-            <Header show={true}/>
+            <Header show={true} order={order} totalPrice={totalPrice}/>
                 <div className="container">
                 <div className="content__top">
                     <Categories categoryNames={categoryNames}/>
@@ -54,7 +62,7 @@ const Home = () => {
                 <div className='pizza'>
                     {pizzasLoadingStatus === 'loading' ? 
                         <Spinner/> : 
-                        filteredPizzas.map(item => <PizzaBlock key={item.id} pizzas={item}/>)}
+                        filteredPizzas.map(pizza => <PizzaBlock key={pizza.id} pizza={pizza} onAddPizza={onAddPizza}/>)}
                 </div>
             </div>
         </>
