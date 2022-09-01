@@ -36,8 +36,7 @@ const Home = () => {
     
     let filteredPizzas = useSelector(filteredPizzasSelector);
     const pizzasLoadingStatus = useSelector(state => state.pizzas.pizzasLoadingStatus);
-    const order = useSelector(state => state.buscet.order);
-    const totalPrice = useSelector(state => state.buscet.totalPrice);
+    const {totalPrice, totalCount, order} = useSelector(state => state.buscet);
 
     const dispatch = useDispatch();
 
@@ -49,10 +48,14 @@ const Home = () => {
     const onAddPizza = (pizza) => {
         dispatch(addPizza(pizza))
     }
+
+    /* const totalCountPizzas = (arr) => {
+        
+    } */
     
     return (
         <>
-            <Header show={true} order={order} totalPrice={totalPrice}/>
+            <Header show={true} totalPrice={totalPrice} totalCount={totalCount}/>
                 <div className="container">
                 <div className="content__top">
                     <Categories categoryNames={categoryNames}/>
@@ -60,9 +63,12 @@ const Home = () => {
                 </div>
                 <div className="content__title">Все пиццы</div>
                 <div className='pizza'>
-                    {pizzasLoadingStatus === 'loading' ? 
-                        <Spinner/> : 
-                        filteredPizzas.map(pizza => <PizzaBlock key={pizza.id} pizza={pizza} onAddPizza={onAddPizza}/>)}
+                    {pizzasLoadingStatus === 'loading' ? <Spinner/> : 
+                                                    filteredPizzas.map(pizza => <PizzaBlock 
+                                                        key={pizza.id}
+                                                        pizza={pizza}
+                                                        order={order}
+                                                        onAddPizza={onAddPizza}/>)}
                 </div>
             </div>
         </>

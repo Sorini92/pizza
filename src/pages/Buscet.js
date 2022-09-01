@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { clearBuscet, deletePizza } from "./buscetSlice";
+import { clearBuscet, deletePizza, plusOnePizza, minusOnePizza } from "./buscetSlice";
 
 import Header from '../components/header/Header'
 import BuscetItem from '../components/buscetItem/BuscetItem';
@@ -16,8 +16,7 @@ const Buscet = () => {
     const navigate = useNavigate();
     const goBack = () => navigate(-1);
 
-    const order = useSelector(state => state.buscet.order);
-    const totalPrice = useSelector(state => state.buscet.totalPrice);
+    const {order, totalPrice, totalCount} = useSelector(state => state.buscet);
 
     const dispatch = useDispatch();
 
@@ -31,6 +30,14 @@ const Buscet = () => {
         if (window.confirm('Вы действительно хотите удалить?')) {
             dispatch(deletePizza(id));
         }
+    }
+
+    const handlePlusPizza = (id) => {
+        dispatch(plusOnePizza(id))
+    }
+
+    const handleMinusPizza = (id) => {
+        dispatch(minusOnePizza(id))
     }
 
     const emptyBuscet = () => (
@@ -70,8 +77,10 @@ const Buscet = () => {
                             imageUrl={item.imageUrl}
                             type={item.type}
                             size={item.size}
-                            price={item.price}
+                            totalSum={item.totalSum}
                             count={item.count}
+                            onPlus={handlePlusPizza}
+                            onMinus={handleMinusPizza}
                             onDelete={onDelete}
                         />
                     ))}
@@ -79,7 +88,7 @@ const Buscet = () => {
                 <div className="buscet__bottom">
                     <div className="buscet__bottom-order">
                         <div className="buscet__bottom-order-count">
-                            Всего пицц: <span>{order.length} шт.</span>
+                            Всего пицц: <span>{totalCount} шт.</span>
                         </div>
                         <div className="buscet__bottom-order-sum">
                             Сумма заказа: <span>{totalPrice} грн</span>
@@ -114,7 +123,7 @@ const Buscet = () => {
         <>
             <Header show={false}/>
             <div className="buscet">
-                {order.length !== 0 ? elements() : emptyBuscet()}
+                {totalCount !== 0 ? elements() : emptyBuscet()}
             </div>
         </>
     )

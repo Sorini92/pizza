@@ -12,19 +12,45 @@ const buscetSlice = createSlice({
     reducers: {
         addPizza: (state, action) => {
             const newItem = state.order.some(item => item.id === action.payload.id)
+            let current = state.order.find(item => item.id === action.payload.id)
+
             if (newItem) {
-                let current = state.order.find(item => item.id === action.payload.id)
                 current.count = current.count + 1;
-                current.price = current.price + current.price
+                current.totalSum = current.totalSum + action.payload.price;
             } else {
                 state.order =[...state.order, action.payload]
             }
+
+            state.totalPrice = state.totalPrice + action.payload.price;
+            state.totalCount = state.totalCount + action.payload.count;
         },
-        countTotalPrice: (state) => {
-            state.totalPrice = state.order.reduce((item, sum) => item.price + sum, 0);
+        plusOnePizza: (state, action) => {
+            let current = state.order.find(item => item.id === action.payload);
+
+            if (current.count < 20) {
+                current.count = current.count + 1;
+                current.totalSum = current.totalSum + current.price;
+                state.totalPrice = state.totalPrice + current.price;
+                state.totalCount = state.totalCount + 1;
+            }
         },
-        countTotalCount: (state) => {state.totalCount = state.order.length},
-        deletePizza: (state, action) => {state.order = state.order.filter(item => item.id !== action.payload)},
+        minusOnePizza: (state, action) => {
+            let current = state.order.find(item => item.id === action.payload);
+
+            if (current.count > 1) {
+                current.count = current.count - 1;
+                current.totalSum = current.totalSum - current.price;
+                state.totalPrice = state.totalPrice - current.price;
+                state.totalCount = state.totalCount - 1;
+            }
+        },
+        deletePizza: (state, action) => {
+            let current = state.order.find(item => item.id === action.payload);
+
+            state.totalPrice = state.totalPrice - current.totalSum;
+            state.totalCount = state.totalCount - current.count;
+            state.order = state.order.filter(item => item.id !== action.payload)
+        },
         clearBuscet: (state) => {
             state.order = [];
             state.totalCount = 0;
@@ -41,5 +67,7 @@ export const {
     countTotalPrice,
     clearBuscet,
     countTotalCount,
+    plusOnePizza,
+    minusOnePizza,
     deletePizza
 } = actions;

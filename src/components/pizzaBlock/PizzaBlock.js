@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import './pizzaBlock.scss';
 
-const PizzaBlock = ({pizza, onAddPizza}) => {
+const PizzaBlock = ({pizza, onAddPizza, order}) => {
     const availableTypes = ['тонкое', 'традиционное'];
     const availableSizes = [26, 30, 40];
 
@@ -14,15 +14,25 @@ const PizzaBlock = ({pizza, onAddPizza}) => {
 
     const onAdd = () => {
         const obj = {
-            id,
+            id: `${id}_${activeType}_${activeSize}`,
             name,
             price,
+            totalSum: price,
             imageUrl,
             type: availableTypes[activeType],
             size: availableSizes[activeSize],
             count: 1
         }
         onAddPizza(obj);
+    }
+
+    const addedPizza = () => {
+        let current = order.find(item => item.name === name);
+        if (current !== undefined) {
+            return <div className='pizza__bottom-btn-count'>{current.count}</div>
+        } else {
+            return null
+        }
     }
 
     return (
@@ -74,7 +84,7 @@ const PizzaBlock = ({pizza, onAddPizza}) => {
                             />
                         </svg>
                         <span>Добавить</span>
-                        {/* <div className='pizza__bottom-btn-count'>1</div> */}
+                        {addedPizza()}
                     </button>
                 </div>
             </div>

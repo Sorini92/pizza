@@ -1,6 +1,6 @@
 import './buscetItem.scss';
 
-const BuscetItem = ({id, imageUrl, name, type, size, price, count, onDelete}) => {
+const BuscetItem = ({id, imageUrl, name, type, size, totalSum, count, onPlus, onMinus, onDelete}) => {
     return (
         <div key={id} className="buscet__middle-item">
             <div className="buscet__middle-item-divider"></div>
@@ -18,11 +18,11 @@ const BuscetItem = ({id, imageUrl, name, type, size, price, count, onDelete}) =>
                     </div>
                 </div> 
                 <div className="buscet__middle-item-block-count">
-                    <div className="buscet__middle-item-block-count-minus">-</div>
+                    <div onClick={() => onMinus(id)} className="buscet__middle-item-block-count-minus">-</div>
                     <div className="buscet__middle-item-block-count-number">{count}</div>
-                    <div className="buscet__middle-item-block-count-plus">+</div>
+                    <div onClick={() => onPlus(id)} className="buscet__middle-item-block-count-plus">+</div>
                 </div>
-                <div className="buscet__middle-item-block-price">{price} грн</div>
+                <div className="buscet__middle-item-block-price">{totalSum} грн</div>
                 <div onClick={() => onDelete(id)} className="buscet__middle-item-block-delete">&times;</div>
             </div>
         </div>
