@@ -9,7 +9,7 @@ const Header = ({show, totalPrice, totalCount}) => {
     return (
         <>
             <div className="header">
-                <div className="header__left">
+                <Link to={'/'} className="header__left">
                     <img className="header__left-img" src={pizza} alt="pizza"/>
                     <div className="header__left-wrapper">
                         <div className="header__left-title">
@@ -19,7 +19,7 @@ const Header = ({show, totalPrice, totalCount}) => {
                             самая вкусная пицца во вселенной
                         </div>
                     </div>
-                </div>
+                </Link>
                 {show && <Link to={'/buscet'} className="header__right">
                     <div className="header__right-sum">
                         {totalPrice} грн

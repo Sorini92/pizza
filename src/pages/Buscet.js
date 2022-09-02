@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { clearBuscet, deletePizza, plusOnePizza, minusOnePizza } from "./buscetSlice";
+import { Helmet } from "react-helmet";
 
+import { clearBuscet, deletePizza, plusOnePizza, minusOnePizza } from "./buscetSlice";
 import Header from '../components/header/Header'
 import BuscetItem from '../components/buscetItem/BuscetItem';
 
@@ -38,6 +39,14 @@ const Buscet = () => {
 
     const handleMinusPizza = (id) => {
         dispatch(minusOnePizza(id))
+    }
+
+    const onClickOrder = () => {
+        let string = '';
+        for (let i = 0; i < order.length; i++) {
+            string = string + `\n${i+1}) Пицца: ${order[i].name}, тесто: ${order[i].type}, размер: ${order[i].size}см, количество: ${order[i].count}шт`
+        }
+        alert(`Ваш заказ: ${string}\nВсего пицц: ${totalCount}шт\n\nК оплате: ${totalPrice}грн`)
     }
 
     const emptyBuscet = () => (
@@ -112,7 +121,7 @@ const Buscet = () => {
                         </svg>
                             <span>Вернуться назад</span>
                         </div>
-                        <div className="buscet__bottom-btns-right">Оплатить сейчас</div>
+                        <div onClick={onClickOrder} className="buscet__bottom-btns-right">Оплатить сейчас</div>
                     </div>
                 </div>
             </>
@@ -121,6 +130,10 @@ const Buscet = () => {
 
     return (
         <>
+            <Helmet>
+                <meta name="description" content="Buscet"/>
+                <title>Buscet</title>
+            </Helmet>
             <Header show={false}/>
             <div className="buscet">
                 {totalCount !== 0 ? elements() : emptyBuscet()}

@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { fetchPizzas } from './pizzasSlice';
 import { addPizza } from './buscetSlice';
 import { createSelector } from '@reduxjs/toolkit';
+import { Helmet } from "react-helmet";
 
 import Categories from "../components/categories/Categories";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";
@@ -55,6 +56,10 @@ const Home = () => {
     
     return (
         <>
+            <Helmet>
+                <meta name="description" content="Home"/>
+                <title>Pizza</title>
+            </Helmet>
             <Header show={true} totalPrice={totalPrice} totalCount={totalCount}/>
                 <div className="container">
                 <div className="content__top">

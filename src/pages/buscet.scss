@@ -1,7 +1,10 @@
 .buscet {
-    width: 821px;
+    max-width: 821px;
     margin: 0 auto;
     margin-top: 94px;
+    @media (max-width: 991px) {
+        padding: 0 60px 0 60px;
+    }
     &__top {
         display: flex;
         justify-content: space-between;
@@ -45,10 +48,14 @@
         &-order {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             &-count {
                 font-size: 22px;
                 letter-spacing: 0.01em;
                 color: #000000;
+                @media (max-width: 600px) {
+                    font-size: 18px;
+                }
                 span {
                     font-weight: 700;
                 }
@@ -57,9 +64,12 @@
                 font-weight: 400;
                 font-size: 22px;
                 line-height: 27px;
-                /* identical to box height */
+
                 letter-spacing: 0.01em;
                 color: #000000;
+                @media (max-width: 600px) {
+                    font-size: 18px;
+                }
                 span {
                     font-weight: 700;
                     color: #FE5F1E;
@@ -84,6 +94,9 @@
                 font-size: 16px;
                 line-height: 19px;
                 color: #CACACA;
+                @media (max-width: 600px) {
+                    width: 170px;
+                }
                 svg {
                     margin-right: 10px;
                 }
@@ -107,6 +120,9 @@
                 line-height: 19px;
                 text-align: center;
                 color: #CACACA;
+                @media (max-width: 600px) {
+                    width: 170px;
+                }
                 &:hover {
                     background-color: #FE5F1E;
                     color: #fff;
