@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { activeFilterChanged } from '../../pages/pizzasSlice';
+import PropTypes from 'prop-types';
 
 import './categories.scss';
 
@@ -30,5 +31,9 @@ const Categories = ({categoryNames}) => {
         </div>
     )
 }
+
+Categories.propTypes = {
+    categoryNames: PropTypes.array.isRequired
+};
 
 export default Categories;

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { activeSortTypeChanged, sortBy } from '../../pages/pizzasSlice';
+import PropTypes from 'prop-types';
 
 import './sortPopup.scss';
 
@@ -67,5 +68,9 @@ const SortPopup = ({sortItems}) => {
         </div>
     )
 }
+
+SortPopup.propTypes = {
+    onAddPizza: PropTypes.func,
+};
 
 export default SortPopup;

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './pizzaBlock.scss';
@@ -28,6 +29,7 @@ const PizzaBlock = ({pizza, onAddPizza, order}) => {
 
     const addedPizza = () => {
         let current = order.find(item => item.name === name);
+        
         if (current !== undefined) {
             return <div className='pizza__bottom-btn-count'>{current.count}</div>
         } else {
@@ -90,5 +92,11 @@ const PizzaBlock = ({pizza, onAddPizza, order}) => {
             </div>
     )
 }
+
+PizzaBlock.propTypes = {
+    pizza: PropTypes.object.isRequired,
+    order: PropTypes.array.isRequired,
+    onAddPizza: PropTypes.func.isRequired,
+};
 
 export default PizzaBlock;

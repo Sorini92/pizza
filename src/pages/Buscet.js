@@ -43,9 +43,11 @@ const Buscet = () => {
 
     const onClickOrder = () => {
         let string = '';
+
         for (let i = 0; i < order.length; i++) {
             string = string + `\n${i+1}) Пицца: ${order[i].name}, тесто: ${order[i].type}, размер: ${order[i].size}см, количество: ${order[i].count}шт`
         }
+        
         alert(`Ваш заказ: ${string}\nВсего пицц: ${totalCount}шт\n\nК оплате: ${totalPrice}грн`)
     }
 

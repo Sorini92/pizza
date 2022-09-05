@@ -16,9 +16,9 @@ import './home.scss';
 const categoryNames = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
 const sortItems = [
-    { name: 'популярности', type: 'popular', order: 'desc' },
-    { name: 'цене', type: 'price', order: 'desc' },
-    { name: 'алфавит', type: 'name', order: 'asc' },
+    { name: 'популярности', type: 'popular'},
+    { name: 'цене', type: 'price'},
+    { name: 'алфавит', type: 'name'},
 ];
 
 const Home = () => {
@@ -49,10 +49,6 @@ const Home = () => {
     const onAddPizza = (pizza) => {
         dispatch(addPizza(pizza))
     }
-
-    /* const totalCountPizzas = (arr) => {
-        
-    } */
     
     return (
         <>
@@ -64,7 +60,7 @@ const Home = () => {
                 <div className="container">
                 <div className="content__top">
                     <Categories categoryNames={categoryNames}/>
-                    <SortPopup sortItems={sortItems}/>
+                    <SortPopup sortItems={sortItems} />
                 </div>
                 <div className="content__title">Все пиццы</div>
                 <div className='pizza'>

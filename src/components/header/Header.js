@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import pizza from '../assets/pizza.png';
 import buscet from '../assets/buscet.svg';
@@ -37,5 +38,11 @@ const Header = ({show, totalPrice, totalCount}) => {
         </>
     )
 }
+
+Header.propTypes = {
+    show: PropTypes.bool.isRequired,
+    totalPrice: PropTypes.number,
+    totalCount: PropTypes.number,
+};
 
 export default Header;
