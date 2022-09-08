@@ -27,4 +27,12 @@
 .container {
     padding-left: 60px;
     padding-right: 60px;
+    @media (max-width: 778px) {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    @media (max-width: 395px) {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }

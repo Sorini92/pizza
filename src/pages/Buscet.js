@@ -62,11 +62,11 @@ const Buscet = () => {
                 Для того, чтобы заказать пиццу, перейди на главную страницу.
             </div>
             <img src={empty} alt='img empty buscet' className="buscet__empty-img"/>
-            <div onClick={goBack} className="buscet__empty-btn">Вернуться назад</div>
+            <button onClick={goBack} className="buscet__empty-btn">Вернуться назад</button>
         </div>
     )
 
-    const elements = () => {
+    const somethingInBuscet = () => {
         return (
             <>
                 <div className="buscet__top">
@@ -123,7 +123,7 @@ const Buscet = () => {
                         </svg>
                             <span>Вернуться назад</span>
                         </div>
-                        <div onClick={onClickOrder} className="buscet__bottom-btns-right">Оплатить сейчас</div>
+                        <button onClick={onClickOrder} className="buscet__bottom-btns-right">Оплатить сейчас</button>
                     </div>
                 </div>
             </>
@@ -138,7 +138,7 @@ const Buscet = () => {
             </Helmet>
             <Header show={false}/>
             <div className="buscet">
-                {totalCount !== 0 ? elements() : emptyBuscet()}
+                {totalCount !== 0 ? somethingInBuscet() : emptyBuscet()}
             </div>
         </>
     )

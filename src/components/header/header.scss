@@ -119,3 +119,31 @@
         }
     }
 }
+
+@media (max-width: 395px) {
+    .header {
+        padding-left: 20px;
+        padding-right: 20px;
+        display: flex;
+        justify-content: space-between;
+        &__left {
+            width: 80px;
+            &-title {
+                margin-top: 13px;
+                font-size: 15px;
+            }
+            &-descr {
+                display: none;
+            }
+        }
+        &__right {
+            min-width: 150px;
+            &-sum {
+                font-size: 13px;
+            }
+            &-count {
+                font-size: 13px;
+            }
+        }
+    }
+}
