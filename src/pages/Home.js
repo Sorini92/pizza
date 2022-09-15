@@ -64,14 +64,15 @@ const Home = () => {
                     <SortPopup sortItems={sortItems} />
                 </div>
                 <div className="content__title">Все пиццы</div>
-                <div className='pizza'>
-                    {pizzasLoadingStatus === 'loading' ? <Spinner/> : 
-                                                    filteredPizzas.map(pizza => <PizzaBlock 
-                                                        key={pizza.id}
-                                                        pizza={pizza}
-                                                        order={order}
-                                                        onAddPizza={onAddPizza}/>)}
-                </div>
+                {pizzasLoadingStatus === 'loading' ? <Spinner/> : 
+                                                    <div className='pizza'>
+                                                        {filteredPizzas.map(pizza => <PizzaBlock 
+                                                                                        key={pizza.id}
+                                                                                        pizza={pizza}
+                                                                                        order={order}
+                                                                                        onAddPizza={onAddPizza}
+                                                                                     />)}
+                                                    </div>}                        
             </div>
         </>
         
