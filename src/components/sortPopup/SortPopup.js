@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { activeSortTypeChanged, sortBy } from '../../pages/pizzasSlice';
 import PropTypes from 'prop-types';
+
+import { activeSortTypeChanged, sortBy } from '../../pages/pizzasSlice';
 
 import './sortPopup.scss';
 

@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchPizzas } from './pizzasSlice';
-import { addPizza } from './buscetSlice';
 import { createSelector } from '@reduxjs/toolkit';
 import { Helmet } from "react-helmet";
+
+import { fetchPizzas } from './pizzasSlice';
+import { addPizza } from './buscetSlice';
 
 import Categories from "../components/categories/Categories";
 import PizzaBlock from "../components/pizzaBlock/PizzaBlock";

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import Modal from '../Modal/Modal';
+
 import './pizzaBlock.scss';
 
 const PizzaBlock = ({pizza, onAddPizza, order}) => {
@@ -10,8 +12,10 @@ const PizzaBlock = ({pizza, onAddPizza, order}) => {
 
     const {id, name, price, imageUrl, types, sizes} = pizza;
 
+    const [modalActive, setModalActive] = useState(false);
+
     const [activeType, setActiveType] = useState(types[0]);
-    const [activeSize, setActiveSize] = useState(0);
+    const [activeSize, setActiveSize] = useState(availableSizes.findIndex(item => item === sizes[0]));
 
     const onAdd = () => {
         const obj = {
@@ -39,7 +43,7 @@ const PizzaBlock = ({pizza, onAddPizza, order}) => {
 
     return (
         <div className='pizza__item'>
-                <img src={imageUrl} alt='pizza' className='pizza__img '/>
+                <img src={imageUrl} alt='pizza' className='pizza__img ' onClick={() => setModalActive(true)}/>
                 <div className='pizza__title'>{name}</div>
                 <div className='pizza__setting'>
                     <div className='pizza__dough'>
@@ -89,6 +93,7 @@ const PizzaBlock = ({pizza, onAddPizza, order}) => {
                         {addedPizza()}
                     </button>
                 </div>
+                <Modal active={modalActive} setActive={setModalActive} img={imageUrl}/>
             </div>
     )
 }

@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { activeFilterChanged } from '../../pages/pizzasSlice';
 import PropTypes from 'prop-types';
+
+import { activeFilterChanged } from '../../pages/pizzasSlice';
 
 import './categories.scss';
 

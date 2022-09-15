@@ -47,9 +47,10 @@ const buscetSlice = createSlice({
         deletePizza: (state, action) => {
             let current = state.order.find(item => item.id === action.payload);
 
+            state.order = state.order.filter(item => item.id !== action.payload)
+            
             state.totalPrice = state.totalPrice - current.totalSum;
             state.totalCount = state.totalCount - current.count;
-            state.order = state.order.filter(item => item.id !== action.payload)
         },
         clearBuscet: (state) => {
             state.order = [];
